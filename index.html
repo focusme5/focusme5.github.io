@@ -352,6 +352,7 @@
         Jika anda berminat, anda dapat menghubungi kami dengan mengisi data
         dibawah ini:
       </p>
+
       <div class="row">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31689.336857369755!2d109.11723959999999!3d-6.8705707!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6fb9dfbf3264c3%3A0x3027a76e352bbe0!2sTegal%2C%20Kota%20Tegal%2C%20Jawa%20Tengah!5e0!3m2!1sid!2sid!4v1684337230437!5m2!1sid!2sid"
@@ -361,20 +362,30 @@
           class="map"
         ></iframe>
 
-        <form action="">
+        <form name="submit-to-google-sheet">
+          <div id="alert" class="alert d-none">
+            <span
+              class="closebtn"
+              onclick="this.parentElement.style.display='none';"
+              >&times;</span
+            >
+            Terimakasih ! Pesan anda sudah kami terima
+          </div>
           <div class="input-group">
             <i data-feather="user"></i>
-            <input type="text" placeholder="nama" />
+            <input name="nama" type="text" placeholder="nama" required />
           </div>
           <div class="input-group">
             <i data-feather="mail"></i>
-            <input type="text" placeholder="email" />
+            <input name="email" type="text" placeholder="email" required />
           </div>
           <div class="input-group">
             <i data-feather="phone"></i>
-            <input type="text" placeholder="no hp" />
+            <input name="hp" type="text" placeholder="hp" required />
           </div>
-          <button type="submit" class="btn">kirim pesan</button>
+          <button type="submit" class="btn btn-primary btn-kirim">
+            kirim pesan
+          </button>
         </form>
       </div>
     </section>
@@ -474,5 +485,22 @@
     </script>
     <!--My Javascript-->
     <script src="js/script.js"></script>
+
+    <script>
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbzKkRfyZHoBAWrFwajKmCI8ao_tatFABpl224yp3j996N2l_y02m6JfbFoSKrHQpmDe/exec";
+      const form = document.forms["submit-to-google-sheet"];
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then(
+            (response) => console.log("Success!", response),
+            allert(),
+            form.reset()
+          )
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
   </body>
 </html>

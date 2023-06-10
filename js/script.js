@@ -64,3 +64,9 @@ window.onclick = (e) => {
     itemDetailModal.style.display = "none";
   }
 };
+
+// allert
+function allert() {
+  var notif = document.getElementById("alert");
+  notif.classList.toggle("d-none");
+}
